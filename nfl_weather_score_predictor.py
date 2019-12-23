@@ -47,6 +47,15 @@ def create_data_loader():
     print(dataset.x_data[0])
     print(dataset.y_data[0])
 
+    dataset_len = len(dataset)
+    indexes = list(range(dataset_len))
+
+    split_pt = int(np.floor(0.3 * dataset_len))
+    np.random.seed(22)
+    np.random.shuffle(indexes)
+
+    train_indexes, valid_indexes = indexes[split_pt:], indexes[:split_pt]
+
     train_sampling = SubsetRandomSampler(train_indexes)
     valid_sampling = SubsetRandomSampler(valid_indexes)
 
@@ -55,6 +64,8 @@ def create_data_loader():
 
     valid_loader = DataLoader(dataset=dataset=, batch_size=100, shuffle=True,
                                 sampler=valid_sampling)
+
+
 
 create_data_loader()
 
